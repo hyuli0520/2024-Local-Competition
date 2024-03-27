@@ -8,7 +8,7 @@ public class Camera : MonoBehaviour
     public GameObject _cameraTarget;
     public GameObject _followCamera;
 
-    void Update()
+    void FixedUpdate()
     {
         if (_cameraTarget == null || _followCamera == null)
             return;
