@@ -2,24 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : Character
 {
     float _h, _v;
     bool isRotation;
     bool isShop;
+    public bool isDesert = false;
+    public bool isMountain = false;
+    public bool isCity = false;
+    public bool isSB = false;
+    public bool isBB = false;
+    public float maxSpeed = 10;
+    public Text randomBoxTxt;
+
 
     void Start()
     {
         _speed = 8f;
-
+        maxSpeed = 10;
         _boxCollider = GetComponent<BoxCollider>();
         _rigid = GetComponent<Rigidbody>();
     }
 
     void Update()
-    {
-        MoveCar();
+    { 
+            MoveCar();
+
+
 
         if (Input.GetKeyDown(KeyCode.R) && isRotation == false)
         {
@@ -37,7 +48,12 @@ public class PlayerController : Character
         _h = Input.GetAxisRaw("Horizontal");
         _v = Input.GetAxisRaw("Vertical");
 
-        _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, 10);
+        if(isSB)
+            _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed + 5);
+        else if(isBB)
+            _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed + 10);
+        else
+            _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed);
         _rigid.AddForce(transform.forward * _v * _speed);
 
         if (Input.GetKey(KeyCode.A))
@@ -71,29 +87,36 @@ public class PlayerController : Character
             {
                 case 1:
                     GameManager.instance._coin += 100;
-                    Debug.Log("100만원");
+                    randomBoxTxt.text = "100만원";
+                    StartCoroutine(TextOnOff());
                     break;
                 case 2:
                     GameManager.instance._coin += 500;
-                    Debug.Log("500만원");
+                    randomBoxTxt.text = "500만원";
+                    StartCoroutine(TextOnOff());
                     break;
                 case 3:
                     GameManager.instance._coin += 1000;
-                    Debug.Log("1000만원");
+                    randomBoxTxt.text = "1000만원";
+                    StartCoroutine(TextOnOff());
                     break;
                 case 4:
                     StartCoroutine(SmallBooster());
-                    Debug.Log("SmallBooster");
+                    randomBoxTxt.text = "SmallBooster";
+                    StartCoroutine(TextOnOff());
                     break;
                 case 5:
                     StartCoroutine(BigBooster());
-                    Debug.Log("BigBooster");
+                    randomBoxTxt.text = "BigBooster";
+                    StartCoroutine(TextOnOff());
+
                     break;
                 default:
                     if (!isShop)
                     {
                         OpenShop();
-                        Debug.Log("Shop");
+                        randomBoxTxt.text = "상점";
+                        StartCoroutine(TextOnOff());
                     }
                     break;
             }
@@ -101,20 +124,29 @@ public class PlayerController : Character
     }
 
     /*속도 순간 소폭 증가*/
-    IEnumerator SmallBooster()
+    public IEnumerator SmallBooster()
     {
-        _speed *= 1.2f;
-        _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, 12);
+        isSB = true;
+        _speed *= 1.4f;
         yield return new WaitForSeconds(1.5f);
-        _speed /= 1.2f;
+        _speed /= 1.4f;
+        isSB = false;
     }
     /*속도 순간 대폭 증가*/
-    IEnumerator BigBooster()
+    public IEnumerator BigBooster()
     {
-        _speed *= 1.5f;
-        _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, 15);
+        isBB = true;
+        _speed *= 1.8f;
         yield return new WaitForSeconds(1.5f);
-        _speed /= 1.5f;
+        _speed /= 1.8f;
+        isBB = false;
+    }
+    /*RandomBoxText*/
+    public IEnumerator TextOnOff()
+    {
+        randomBoxTxt.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        randomBoxTxt.gameObject.SetActive(false);
     }
 
     void OpenShop()
@@ -125,7 +157,8 @@ public class PlayerController : Character
 
     public void CloseShop()
     {
-        Time.timeScale = 1;
         GameManager.instance._shopPanel.SetActive(false);
+        Time.timeScale = 1;
     }
+
 }

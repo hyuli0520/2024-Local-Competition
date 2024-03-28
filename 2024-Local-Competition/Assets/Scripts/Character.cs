@@ -7,5 +7,5 @@ public class Character : MonoBehaviour
     protected BoxCollider _boxCollider;
     protected Rigidbody _rigid;
 
-    protected float _speed;
+    public float _speed;
 }
