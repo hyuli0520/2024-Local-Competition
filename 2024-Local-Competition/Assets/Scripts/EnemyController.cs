@@ -18,6 +18,7 @@ public class EnemyController : Character
 
     void Update()
     {
+        agent.speed = _speed;
         agent.SetDestination(target.position);
     }
 }

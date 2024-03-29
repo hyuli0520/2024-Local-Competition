@@ -27,18 +27,21 @@ public class PlayerController : Character
     }
 
     void Update()
-    { 
+    {
+        if (GameManager.instance._isStart)
+        {
             MoveCar();
 
 
 
-        if (Input.GetKeyDown(KeyCode.R) && isRotation == false)
-        {
-            transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
-            int rand = Random.Range(0, 1);
-            transform.position = new Vector3(transform.position.x + rand, transform.position.y + 5, transform.position.z + rand);
-            isRotation = true;
-            StartCoroutine(RotationCool());
+            if (Input.GetKeyDown(KeyCode.R) && isRotation == false)
+            {
+                transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
+                int rand = Random.Range(0, 1);
+                transform.position = new Vector3(transform.position.x + rand, transform.position.y + 5, transform.position.z + rand);
+                isRotation = true;
+                StartCoroutine(RotationCool());
+            }
         }
     }
 
@@ -48,9 +51,9 @@ public class PlayerController : Character
         _h = Input.GetAxisRaw("Horizontal");
         _v = Input.GetAxisRaw("Vertical");
 
-        if(isSB)
+        if (isSB)
             _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed + 5);
-        else if(isBB)
+        else if (isBB)
             _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed + 10);
         else
             _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed);
@@ -114,7 +117,7 @@ public class PlayerController : Character
                 default:
                     if (!isShop)
                     {
-                        OpenShop();
+                        Invoke("OpenShop", 1.3f);
                         randomBoxTxt.text = "ªÛ¡°";
                         StartCoroutine(TextOnOff());
                     }
@@ -149,7 +152,7 @@ public class PlayerController : Character
         randomBoxTxt.gameObject.SetActive(false);
     }
 
-    void OpenShop()
+    public void OpenShop()
     {
         Time.timeScale = 0;
         GameManager.instance._shopPanel.SetActive(true);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public int _coin;
     public float _time;
+    public int _score;
     public GameObject _shopPanel;
     public PlayerController _playerController;
     public GameObject _f1Cheat;
@@ -16,9 +18,10 @@ public class GameManager : MonoBehaviour
     public bool _isStart;
     public Text _timeTxt;
     public Text _StartCoolTxt;
-    public int _score;
-    public GameObject _goalPanel;
-    public string[] _goalObj;    
+    public string[] _goalObj;
+    public string _nextScene;
+    public Canvas _inGameCanvas;
+    public bool _isPlayer;
 
     /*bestPlayer*/
     public struct bestPlayer
@@ -49,22 +52,29 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
         }
+        else
+            Destroy(this);
     }
 
     void Start()
     {
-        _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        ClickStart();
+
     }
 
     void Update()
     {
-        if(_isStart)
+        if (_playerController == null)
+            _isPlayer = false;
+        if (_isStart)
         {
             _time += Time.deltaTime;
             _timeTxt.text = ((int)_time / 60).ToString() + " : " + ((int)_time % 60).ToString();
         }
-
+        if (_isPlayer == false)
+        {
+            _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            _isPlayer = true;
+        }
         _haveMoney.text = _coin.ToString() + "만원";
 
         Cheat();
@@ -130,14 +140,22 @@ public class GameManager : MonoBehaviour
             StartCoroutine(_playerController.TextOnOff());
         }
     }
+    public void CloseShop()
+    {
+        _shopPanel.SetActive(false);
+        Time.timeScale = 1;
+    }
 
     public void ClickStart()
     {
+        SceneManager.LoadScene(_nextScene);
+
         StartCoroutine(CoolDown());
     }
     /*시작 쿨타임*/
-    private IEnumerator CoolDown()
+    public IEnumerator CoolDown()
     {
+        _inGameCanvas.gameObject.SetActive(true);
         _StartCoolTxt.gameObject.SetActive(true);
         _StartCoolTxt.text = 3.ToString();
         yield return new WaitForSeconds(1);
@@ -147,5 +165,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         _StartCoolTxt.gameObject.SetActive(false);
         Time.timeScale = 1;
+        _isStart = true;
     }
 }

@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-    public PlayerController _player;
-
     public Button desertWheel;
     public Button mountainWheel;
     public Button cityWheel;
@@ -27,7 +25,7 @@ public class Shop : MonoBehaviour
 
     void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        
         desert = false;
         mount = false;
         city = false;
@@ -41,7 +39,7 @@ public class Shop : MonoBehaviour
         {
             if (desert == false)
             {
-                _player.isDesert = true;
+                GameManager.instance._playerController.isDesert = true;
                 desert = true;
                 check1.SetActive(true);
             }
@@ -51,7 +49,7 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 300 && desert == false)
             {
                 GameManager.instance._coin -= 300;
-                _player.isDesert = true;
+                GameManager.instance._playerController.isDesert = true;
                 desert = true;
                 check1.SetActive(true);
             }
@@ -63,7 +61,7 @@ public class Shop : MonoBehaviour
         {
             if (mount == false)
             {
-                _player.isMountain = true;
+                GameManager.instance._playerController.isMountain = true;
                 mount = true;
                 check2.SetActive(true);
             }
@@ -73,7 +71,7 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 800 && mount == false)
             {
                 GameManager.instance._coin -= 800;
-                _player.isMountain = true;
+                GameManager.instance._playerController.isMountain = true;
                 mount = true;
                 check2.SetActive(true);
             }
@@ -85,7 +83,7 @@ public class Shop : MonoBehaviour
         {
             if (city == false)
             {
-                _player.isCity = true;
+                GameManager.instance._playerController.isCity = true;
                 city = true;
                 check3.SetActive(true);
             }
@@ -95,7 +93,7 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 1200 && city == false)
             {
                 GameManager.instance._coin -= 1200;
-                _player.isCity = true;
+                GameManager.instance._playerController.isCity = true;
                 city = true;
                 check3.SetActive(true);
             }
@@ -107,8 +105,8 @@ public class Shop : MonoBehaviour
         {
             if (six == false)
             {
-                _player._speed *= 1.2f;
-                _player.maxSpeed += 4f;
+                GameManager.instance._playerController._speed *= 1.2f;
+                GameManager.instance._playerController.maxSpeed += 4f;
                 six = true;
                 check4.SetActive(true);
             }
@@ -118,8 +116,8 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 3500 && six == false)
             {
                 GameManager.instance._coin -= 3500;
-                _player._speed *= 1.2f;
-                _player.maxSpeed += 4f;
+                GameManager.instance._playerController._speed *= 1.2f;
+                GameManager.instance._playerController.maxSpeed += 4f;
                 six = true;
                 check4.SetActive(true);
             }
@@ -131,8 +129,8 @@ public class Shop : MonoBehaviour
         {
             if (eight == false)
             {
-                _player._speed *= 1.4f;
-                _player.maxSpeed += 8f;
+                GameManager.instance._playerController._speed *= 1.4f;
+                GameManager.instance._playerController.maxSpeed += 8f;
                 eight = true;
                 check5.SetActive(true);
             }
@@ -142,8 +140,8 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 5000 && eight == false)
             {
                 GameManager.instance._coin -= 5000;
-                _player._speed *= 1.4f;
-                _player.maxSpeed += 8f;
+                GameManager.instance._playerController._speed *= 1.4f;
+                GameManager.instance._playerController.maxSpeed += 8f;
                 eight = true;
                 check5.SetActive(true);
             }
