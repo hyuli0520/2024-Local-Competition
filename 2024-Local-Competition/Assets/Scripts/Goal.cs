@@ -20,9 +20,9 @@ public class Goal : MonoBehaviour
         else
             GameManager.instance._goalObj[1] = collider.gameObject.tag;
 
-        if (collider.tag == "Player")
+        if (collider.tag == "Player" || collider.tag == "PlayerCol")
         {
-            if (GameManager.instance._goalObj[0] == "Player")
+            if (GameManager.instance._goalObj[0] == "Player" || GameManager.instance._goalObj[0] == "PlayerCol")
             {
                 Time.timeScale = 0;
                 GameManager.instance._isStart = false;

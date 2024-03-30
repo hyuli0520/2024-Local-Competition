@@ -15,8 +15,6 @@ public class PlayerController : Character
     public bool isSB = false;
     public bool isBB = false;
     public float maxSpeed = 10;
-    public Text randomBoxTxt;
-
 
     void Start()
     {
@@ -57,6 +55,7 @@ public class PlayerController : Character
             _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed + 10);
         else
             _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed);
+        
         _rigid.AddForce(transform.forward * _v * _speed);
 
         if (Input.GetKey(KeyCode.A))
@@ -90,27 +89,27 @@ public class PlayerController : Character
             {
                 case 1:
                     GameManager.instance._coin += 100;
-                    randomBoxTxt.text = "100만원";
+                    GameManager.instance._randomBoxTxt.text = "100만원";
                     StartCoroutine(TextOnOff());
                     break;
                 case 2:
                     GameManager.instance._coin += 500;
-                    randomBoxTxt.text = "500만원";
+                    GameManager.instance._randomBoxTxt.text = "500만원";
                     StartCoroutine(TextOnOff());
                     break;
                 case 3:
                     GameManager.instance._coin += 1000;
-                    randomBoxTxt.text = "1000만원";
+                    GameManager.instance._randomBoxTxt.text = "1000만원";
                     StartCoroutine(TextOnOff());
                     break;
                 case 4:
                     StartCoroutine(SmallBooster());
-                    randomBoxTxt.text = "SmallBooster";
+                    GameManager.instance._randomBoxTxt.text = "SmallBooster";
                     StartCoroutine(TextOnOff());
                     break;
                 case 5:
                     StartCoroutine(BigBooster());
-                    randomBoxTxt.text = "BigBooster";
+                    GameManager.instance._randomBoxTxt.text = "BigBooster";
                     StartCoroutine(TextOnOff());
 
                     break;
@@ -118,7 +117,7 @@ public class PlayerController : Character
                     if (!isShop)
                     {
                         Invoke("OpenShop", 1.3f);
-                        randomBoxTxt.text = "상점";
+                        GameManager.instance._randomBoxTxt.text = "상점";
                         StartCoroutine(TextOnOff());
                     }
                     break;
@@ -147,9 +146,9 @@ public class PlayerController : Character
     /*RandomBoxText*/
     public IEnumerator TextOnOff()
     {
-        randomBoxTxt.gameObject.SetActive(true);
+        GameManager.instance._randomBoxTxt.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.5f);
-        randomBoxTxt.gameObject.SetActive(false);
+        GameManager.instance._randomBoxTxt.gameObject.SetActive(false);
     }
 
     public void OpenShop()

@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public string _nextScene;
     public Canvas _inGameCanvas;
     public bool _isPlayer;
+    public Text _randomBoxTxt;
 
     /*bestPlayer*/
     public struct bestPlayer
@@ -107,19 +108,19 @@ public class GameManager : MonoBehaviour
     public void Click100()
     {
         _coin += 100;
-        _playerController.randomBoxTxt.text = "100만원";
+        _randomBoxTxt.text = "100만원";
         StartCoroutine(_playerController.TextOnOff());
     }
     public void Click500()
     {
         _coin += 500;
-        _playerController.randomBoxTxt.text = "500만원";
+       _randomBoxTxt.text = "500만원";
         StartCoroutine(_playerController.TextOnOff());
     }
     public void Click1000()
     {
         _coin += 1000;
-        _playerController.randomBoxTxt.text = "1000만원";
+        _randomBoxTxt.text = "1000만원";
         StartCoroutine(_playerController.TextOnOff());
     }
     public void ClickSB()
@@ -127,7 +128,7 @@ public class GameManager : MonoBehaviour
         if (_playerController.isSB == false)
         {
             StartCoroutine(_playerController.SmallBooster());
-            _playerController.randomBoxTxt.text = "SmallBooster";
+            _randomBoxTxt.text = "SmallBooster";
             StartCoroutine(_playerController.TextOnOff());
         }
     }
@@ -136,7 +137,7 @@ public class GameManager : MonoBehaviour
         if (_playerController.isBB == false)
         {
             StartCoroutine(_playerController.BigBooster());
-            _playerController.randomBoxTxt.text = "BigBooster";
+            _randomBoxTxt.text = "BigBooster";
             StartCoroutine(_playerController.TextOnOff());
         }
     }
