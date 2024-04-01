@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider collider)
     {
         if(collider != null && (collider.tag == "Player" || collider.tag == "PlayerCol"))

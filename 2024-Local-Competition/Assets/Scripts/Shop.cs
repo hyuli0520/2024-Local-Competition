@@ -25,7 +25,6 @@ public class Shop : MonoBehaviour
 
     void Start()
     {
-        
         desert = false;
         mount = false;
         city = false;
