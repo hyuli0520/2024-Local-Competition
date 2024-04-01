@@ -19,7 +19,7 @@ public class PlayerController : Character
 
     void Start()
     {
-        _speed = 12f;
+        _speed = 700f;
         maxSpeed = 18;
         _boxCollider = GetComponent<BoxCollider>();
         _rigid = GetComponent<Rigidbody>();
@@ -54,7 +54,8 @@ public class PlayerController : Character
     /*플레이어 이동*/
     void MoveCar()
     {
-        _rigid.AddForce(transform.forward * _v * _speed);
+        _rigid.AddForce(transform.forward * _v * _speed * Time.deltaTime);
+        Debug.Log(transform.forward);
 
         if (isSB)
             _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed + 5);
@@ -71,12 +72,6 @@ public class PlayerController : Character
         {
             transform.Rotate(Vector3.up * _h);
         }
-
-        //if(Input.GetKey(KeyCode.Space))
-        //{
-        //    PhysicMaterial physicMaterial = new PhysicMaterial();
-        //    physicMaterial.s
-        //}
     }
     /*플레이어 원상 복구 쿨타임*/
     private IEnumerator RotationCool()

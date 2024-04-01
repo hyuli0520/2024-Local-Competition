@@ -10,6 +10,7 @@ TagManager:
   - Goal
   - Road
   - NotRoad
+  - SceneManager
   layers:
   - Default
   - TransparentFX

@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public string[] _goalObj;
     public Canvas _inGameCanvas;
     public bool _isPlayer;
+    public Scene _scene;
+    public bool _isScene;
     public Text _randomBoxTxt;
     public string _name;
 
@@ -35,15 +37,12 @@ public class GameManager : MonoBehaviour
             Destroy(this);
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         if (_player == null)
             _isPlayer = false;
+        if (_scene == null)
+            _isScene = false;
         if (_isStart)
         {
             _time += Time.deltaTime;
@@ -53,6 +52,11 @@ public class GameManager : MonoBehaviour
         {
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             _isPlayer = true;
+        }
+        if (_isScene == false)
+        {
+            _scene = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<Scene>();
+            _isScene = true;
         }
         _haveMoney.text = _coin.ToString() + "¸¸¿ø";
 
@@ -64,6 +68,20 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonDown("F1"))
         {
             _f1Cheat.SetActive(!_f1Cheat.activeSelf);
+        }
+
+        if(Input.GetButtonDown("F3"))
+        {
+            _isStart = false;
+            Time.timeScale = 0;
+            _scene.ClickRetryStage();
+        }
+
+        if(Input.GetButtonDown("F4"))
+        {
+            _isStart = false;
+            Time.timeScale = 0;
+            _scene.ClickNextStage();
         }
 
         if (Input.GetButton("F5"))
