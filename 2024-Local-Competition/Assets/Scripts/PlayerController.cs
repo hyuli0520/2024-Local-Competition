@@ -14,27 +14,35 @@ public class PlayerController : Character
     public bool isCity = false;
     public bool isSB = false;
     public bool isBB = false;
-    public float maxSpeed = 10;
+    public float maxSpeed;
+    RaycastHit hit;
 
     void Start()
     {
-        _speed = 8f;
-        maxSpeed = 10;
+        _speed = 12f;
+        maxSpeed = 18;
         _boxCollider = GetComponent<BoxCollider>();
         _rigid = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
+        _h = Input.GetAxisRaw("Horizontal");
+        _v = Input.GetAxisRaw("Vertical");
+
         if (GameManager.instance._isStart)
         {
             MoveCar();
 
-
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 2))
+            {
+                if (hit.transform.CompareTag("NotRoad"))
+                    _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed / 3);
+            }
 
             if (Input.GetKeyDown(KeyCode.R) && isRotation == false)
             {
-                transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
+                transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
                 int rand = Random.Range(0, 1);
                 transform.position = new Vector3(transform.position.x + rand, transform.position.y + 5, transform.position.z + rand);
                 isRotation = true;
@@ -46,8 +54,7 @@ public class PlayerController : Character
     /*플레이어 이동*/
     void MoveCar()
     {
-        _h = Input.GetAxisRaw("Horizontal");
-        _v = Input.GetAxisRaw("Vertical");
+        _rigid.AddForce(transform.forward * _v * _speed);
 
         if (isSB)
             _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed + 5);
@@ -55,16 +62,14 @@ public class PlayerController : Character
             _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed + 10);
         else
             _rigid.velocity = Vector3.ClampMagnitude(_rigid.velocity, maxSpeed);
-        
-        _rigid.AddForce(transform.forward * _v * _speed);
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.forward = Vector3.Lerp(transform.forward, transform.right * _h, Time.deltaTime);
+            transform.Rotate(Vector3.up * _h);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.forward = Vector3.Lerp(transform.forward, transform.right * _h, Time.deltaTime);
+            transform.Rotate(Vector3.up * _h);
         }
 
         //if(Input.GetKey(KeyCode.Space))

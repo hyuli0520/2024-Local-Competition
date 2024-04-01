@@ -15,7 +15,7 @@ public class EnemyController : Character
     {
         agent = GetComponent<NavMeshAgent>();
         _boxCollider = GetComponent<BoxCollider>();
-        _speed = 10;
+        _speed = 20;
     }
 
     void Update()

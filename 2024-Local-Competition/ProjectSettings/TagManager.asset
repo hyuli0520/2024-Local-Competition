@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - PlayerCol
   - Goal
+  - Road
+  - NotRoad
   layers:
   - Default
   - TransparentFX

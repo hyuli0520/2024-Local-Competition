@@ -39,7 +39,7 @@ public class Shop : MonoBehaviour
         {
             if (desert == false)
             {
-                GameManager.instance._playerController.isDesert = true;
+                GameManager.instance._player.isDesert = true;
                 desert = true;
                 check1.SetActive(true);
             }
@@ -49,7 +49,7 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 300 && desert == false)
             {
                 GameManager.instance._coin -= 300;
-                GameManager.instance._playerController.isDesert = true;
+                GameManager.instance._player.isDesert = true;
                 desert = true;
                 check1.SetActive(true);
             }
@@ -61,7 +61,7 @@ public class Shop : MonoBehaviour
         {
             if (mount == false)
             {
-                GameManager.instance._playerController.isMountain = true;
+                GameManager.instance._player.isMountain = true;
                 mount = true;
                 check2.SetActive(true);
             }
@@ -71,7 +71,7 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 800 && mount == false)
             {
                 GameManager.instance._coin -= 800;
-                GameManager.instance._playerController.isMountain = true;
+                GameManager.instance._player.isMountain = true;
                 mount = true;
                 check2.SetActive(true);
             }
@@ -83,7 +83,7 @@ public class Shop : MonoBehaviour
         {
             if (city == false)
             {
-                GameManager.instance._playerController.isCity = true;
+                GameManager.instance._player.isCity = true;
                 city = true;
                 check3.SetActive(true);
             }
@@ -93,7 +93,7 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 1200 && city == false)
             {
                 GameManager.instance._coin -= 1200;
-                GameManager.instance._playerController.isCity = true;
+                GameManager.instance._player.isCity = true;
                 city = true;
                 check3.SetActive(true);
             }
@@ -105,8 +105,8 @@ public class Shop : MonoBehaviour
         {
             if (six == false)
             {
-                GameManager.instance._playerController._speed *= 1.2f;
-                GameManager.instance._playerController.maxSpeed += 4f;
+                GameManager.instance._player._speed *= 1.2f;
+                GameManager.instance._player.maxSpeed += 4f;
                 six = true;
                 check4.SetActive(true);
             }
@@ -116,8 +116,8 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 3500 && six == false)
             {
                 GameManager.instance._coin -= 3500;
-                GameManager.instance._playerController._speed *= 1.2f;
-                GameManager.instance._playerController.maxSpeed += 4f;
+                GameManager.instance._player._speed *= 1.2f;
+                GameManager.instance._player.maxSpeed += 4f;
                 six = true;
                 check4.SetActive(true);
             }
@@ -129,8 +129,8 @@ public class Shop : MonoBehaviour
         {
             if (eight == false)
             {
-                GameManager.instance._playerController._speed *= 1.4f;
-                GameManager.instance._playerController.maxSpeed += 8f;
+                GameManager.instance._player._speed *= 1.4f;
+                GameManager.instance._player.maxSpeed += 8f;
                 eight = true;
                 check5.SetActive(true);
             }
@@ -140,8 +140,8 @@ public class Shop : MonoBehaviour
             if (GameManager.instance._coin > 5000 && eight == false)
             {
                 GameManager.instance._coin -= 5000;
-                GameManager.instance._playerController._speed *= 1.4f;
-                GameManager.instance._playerController.maxSpeed += 8f;
+                GameManager.instance._player._speed *= 1.4f;
+                GameManager.instance._player.maxSpeed += 8f;
                 eight = true;
                 check5.SetActive(true);
             }

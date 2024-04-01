@@ -12,39 +12,17 @@ public class GameManager : MonoBehaviour
     public float _time;
     public int _score;
     public GameObject _shopPanel;
-    public PlayerController _playerController;
+    public PlayerController _player;
     public GameObject _f1Cheat;
     public Text _haveMoney;
     public bool _isStart;
     public Text _timeTxt;
     public Text _StartCoolTxt;
     public string[] _goalObj;
-    public string _nextScene;
     public Canvas _inGameCanvas;
     public bool _isPlayer;
     public Text _randomBoxTxt;
-
-    /*bestPlayer*/
-    public struct bestPlayer
-    {
-        public string _bestName;
-        public int _bestScore;
-
-        public bestPlayer(string bestName, int bestScore)
-        {
-            _bestName = bestName;
-            _bestScore = bestScore;
-        }
-    }
-    /*ranks*/
-    public List<bestPlayer> ranks = new List<bestPlayer>()
-    {
-        new bestPlayer("-",0),
-        new bestPlayer("-",0),
-        new bestPlayer("-",0),
-        new bestPlayer("-",0),
-        new bestPlayer("-",0)
-    };
+    public string _name;
 
     void Awake()
     {
@@ -64,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (_playerController == null)
+        if (_player == null)
             _isPlayer = false;
         if (_isStart)
         {
@@ -73,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
         if (_isPlayer == false)
         {
-            _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             _isPlayer = true;
         }
         _haveMoney.text = _coin.ToString() + "만원";
@@ -98,47 +76,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-    /*랭크 시스템*/
-    public void Rank()
-    {
-        ranks.Sort((a, b) => { return b._bestScore - a._bestScore; });
-    }
-
     public void Click100()
     {
         _coin += 100;
         _randomBoxTxt.text = "100만원";
-        StartCoroutine(_playerController.TextOnOff());
+        StartCoroutine(_player.TextOnOff());
     }
     public void Click500()
     {
         _coin += 500;
        _randomBoxTxt.text = "500만원";
-        StartCoroutine(_playerController.TextOnOff());
+        StartCoroutine(_player.TextOnOff());
     }
     public void Click1000()
     {
         _coin += 1000;
         _randomBoxTxt.text = "1000만원";
-        StartCoroutine(_playerController.TextOnOff());
+        StartCoroutine(_player.TextOnOff());
     }
     public void ClickSB()
     {
-        if (_playerController.isSB == false)
+        if (_player.isSB == false)
         {
-            StartCoroutine(_playerController.SmallBooster());
+            StartCoroutine(_player.SmallBooster());
             _randomBoxTxt.text = "SmallBooster";
-            StartCoroutine(_playerController.TextOnOff());
+            StartCoroutine(_player.TextOnOff());
         }
     }
     public void ClickBB()
     {
-        if (_playerController.isBB == false)
+        if (_player.isBB == false)
         {
-            StartCoroutine(_playerController.BigBooster());
+            StartCoroutine(_player.BigBooster());
             _randomBoxTxt.text = "BigBooster";
-            StartCoroutine(_playerController.TextOnOff());
+            StartCoroutine(_player.TextOnOff());
         }
     }
     public void CloseShop()
@@ -147,12 +118,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void ClickStart()
+    public void CoroutineCoolDown()
     {
-        SceneManager.LoadScene(_nextScene);
+        for(int i = 0; i < _goalObj.Length; i++)
+            _goalObj[i] = string.Empty; 
 
         StartCoroutine(CoolDown());
     }
+
     /*시작 쿨타임*/
     public IEnumerator CoolDown()
     {
@@ -165,7 +138,6 @@ public class GameManager : MonoBehaviour
         _StartCoolTxt.text = 1.ToString();
         yield return new WaitForSeconds(1);
         _StartCoolTxt.gameObject.SetActive(false);
-        Time.timeScale = 1;
         _isStart = true;
     }
 }

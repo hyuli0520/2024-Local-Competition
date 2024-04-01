@@ -176,7 +176,7 @@ Transform:
   m_GameObject: {fileID: 2161380510506817988}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -3}
+  m_LocalPosition: {x: 0, y: 2, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -740,7 +740,6 @@ MonoBehaviour:
   isSB: 0
   isBB: 0
   maxSpeed: 0
-  randomBoxTxt: {fileID: 0}
 --- !u!1 &7756739340170707192
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Desert.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Mountain.unity
+    guid: 277611e7963d5104a9546f762df6a41d
+  - enabled: 1
+    path: Assets/Scenes/City.unity
+    guid: 5756ae89fce8a86459e0eec8c8ef1733
+  - enabled: 1
+    path: Assets/Scenes/Ranking.unity
+    guid: 0855685122670934c8248e7074e2b529
   m_configObjects: {}

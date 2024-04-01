@@ -47,12 +47,6 @@ public class Goal : MonoBehaviour
         }
 
     }
-    public void ClickNext()
-    {
-        SceneManager.LoadScene(GameManager.instance._nextScene);
-
-        StartCoroutine(GameManager.instance.CoolDown());
-    }
 
     public void ClickShop()
     {
